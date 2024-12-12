@@ -17,6 +17,9 @@ export default {
         'tapps-purple': '#CAC6EC',
         'tapps-blue': '#1C77FF',
       },
+      backgroundImage: {
+        'frame-1': "url('/frames/frame-1.png')",
+      },
     },
   },
   plugins: [],

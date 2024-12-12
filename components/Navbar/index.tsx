@@ -1,10 +1,17 @@
+'use client';
+
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
+import { IShowSidebarStatus } from '@tapps/types';
+import { UrlObject } from 'url';
 
 export function Navbar() {
+  const [isShowSideBar, setIsShowSideBar] = useState<IShowSidebarStatus>(
+    (localStorage.getItem('show-sidebar') as IShowSidebarStatus) ?? 'show',
+  );
   const onRenderNavItems = () => {
     const navItems = [
       { id: 'ton', name: 'Ton', link: '#' },
@@ -13,15 +20,34 @@ export function Navbar() {
 
     return navItems.map((i) => {
       return (
-        <Link key={i.id} href={i.link} className="font-bold hover:underline">
+        <Link
+          key={i.id}
+          href={i.link as unknown as UrlObject}
+          className="font-bold hover:underline"
+        >
           {i.name}
         </Link>
       );
     });
   };
+
+  const onHandleShowSideBar = () => {
+    setIsShowSideBar(
+      isShowSideBar === IShowSidebarStatus.show
+        ? IShowSidebarStatus.hide
+        : IShowSidebarStatus.show,
+    );
+    localStorage.setItem('show-sidebar', isShowSideBar);
+  };
+
   return (
-    <section className="bg-tapps-light-black flex w-full items-center justify-between gap-3 border-b-[0.5px] border-b-tapps-white/20 px-6 py-3 transition-all duration-300 hover:brightness-110">
-      <FontAwesomeIcon icon={faBars} size="xl" />
+    <section className="flex w-full items-center justify-between gap-3 border-b-[0.5px] border-b-tapps-white/20 bg-tapps-light-black px-6 py-3 transition-all duration-300 hover:brightness-110">
+      <FontAwesomeIcon
+        icon={faBars}
+        size="xl"
+        className="cursor-pointer"
+        onClick={onHandleShowSideBar}
+      />
       <nav className="flex items-center gap-3">{onRenderNavItems()}</nav>
       <div className="flex items-center gap-5 text-sm font-bold">
         <Image

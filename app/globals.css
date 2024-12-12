@@ -19,3 +19,7 @@ body {
   background: var(--background); */
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.bg-home-frame-1 {
+  @apply bg-frame-1 bg-contain bg-center bg-no-repeat;
+}
