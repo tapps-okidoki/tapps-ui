@@ -4,7 +4,6 @@ import './globals.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
-import { Navbar } from '@tapps/components/Navbar';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -19,7 +18,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: 'Tapps Okidoki',
-  description: 'Telegram Apps',
+  description: 'Telegram Apss',
 };
 
 export default function RootLayout({
@@ -32,7 +31,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-[100dvh] w-[100dvw] bg-tapps-black text-tapps-white antialiased`}
       >
-        <Navbar />
         {children}
       </body>
     </html>

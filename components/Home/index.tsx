@@ -14,16 +14,14 @@ import {
   faSackDollar,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { IShowSidebarStatus } from '@tapps/types';
 import { HomePanel } from './parts/HomePanel';
+import { AppContext } from '@tapps/contexts/AppContext';
 
 export function HomeComponent() {
-  const isShowSidebar =
-    (localStorage.getItem('show-sidebar') as IShowSidebarStatus) ??
-    IShowSidebarStatus.show;
-  console.log('isShowSidebar: ', isShowSidebar);
+  const { showSideBar } = useContext(AppContext);
   const searchParams = useSearchParams();
   const router = useRouter();
   const currentTab = searchParams.get('tab');
@@ -105,7 +103,7 @@ export function HomeComponent() {
         }}
         className="flex min-h-[calc(100dvh-60.5px)] w-full"
       >
-        {isShowSidebar === IShowSidebarStatus.show ? (
+        {showSideBar === IShowSidebarStatus.show ? (
           <TabList className="flex min-w-[17%] flex-col bg-tapps-light-black">
             {onRenderTabs()}
           </TabList>

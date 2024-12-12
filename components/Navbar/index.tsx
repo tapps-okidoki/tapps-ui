@@ -4,14 +4,13 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { IShowSidebarStatus } from '@tapps/types';
 import { UrlObject } from 'url';
+import { AppContext } from '@tapps/contexts/AppContext';
 
 export function Navbar() {
-  const [isShowSideBar, setIsShowSideBar] = useState<IShowSidebarStatus>(
-    (localStorage.getItem('show-sidebar') as IShowSidebarStatus) ?? 'show',
-  );
+  const { showSideBar, setShowSideBar } = useContext(AppContext);
   const onRenderNavItems = () => {
     const navItems = [
       { id: 'ton', name: 'Ton', link: '#' },
@@ -32,12 +31,12 @@ export function Navbar() {
   };
 
   const onHandleShowSideBar = () => {
-    setIsShowSideBar(
-      isShowSideBar === IShowSidebarStatus.show
-        ? IShowSidebarStatus.hide
-        : IShowSidebarStatus.show,
-    );
-    localStorage.setItem('show-sidebar', isShowSideBar);
+    if (setShowSideBar)
+      setShowSideBar(
+        showSideBar === IShowSidebarStatus.show
+          ? IShowSidebarStatus.hide
+          : IShowSidebarStatus.show,
+      );
   };
 
   return (
