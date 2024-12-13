@@ -23,3 +23,34 @@ body {
 .bg-home-frame-1 {
   @apply bg-frame-1 bg-contain bg-center bg-no-repeat;
 }
+
+.swiper .swiper-button-prev,
+.swiper .swiper-button-next {
+  @apply h-10 w-10 rounded-full bg-tapps-white bg-opacity-60 text-sm text-yellow-600 backdrop-blur-sm md:h-12 md:w-12;
+}
+
+.swiper .swiper-slide .animate-appear {
+  @apply h-0 translate-y-[50vh] opacity-0 transition-all ease-in-out;
+}
+
+.swiper .swiper-slide.swiper-slide-active .animate-appear {
+  @apply h-fit translate-y-0 opacity-100;
+}
+
+.swiper .swiper-slide .animate-appear-trailer {
+  @apply w-0 translate-x-[120%] opacity-0 transition-all duration-[2500ms] ease-in-out;
+}
+
+.swiper .swiper-slide.swiper-slide-active .animate-appear-trailer {
+  @apply w-fit translate-x-0 opacity-100;
+}
+
+swiper-container::part(button-prev),
+swiper-container::part(button-next) {
+  @apply rounded-full bg-tapps-black bg-opacity-60 p-3 text-yellow-600 backdrop-blur-sm md:h-7 md:w-7;
+}
+
+.swiper .swiper-button-prev:after,
+.swiper .swiper-button-next:after {
+  @apply rounded-full text-2xl;
+}

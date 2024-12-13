@@ -101,17 +101,17 @@ export function HomeComponent() {
           setSelectedIndex(index);
           router.push(`?tab=${index}`);
         }}
-        className="flex min-h-[calc(100dvh-60.5px)] w-full"
+        className="relative flex min-h-screen w-full"
       >
         {showSideBar === IShowSidebarStatus.show ? (
-          <TabList className="flex min-w-[17%] flex-col bg-tapps-light-black">
+          <TabList className="sticky top-[60.5px] z-20 flex h-[calc(100dvh-60.5px)] min-w-[17%] flex-col bg-tapps-light-black">
             {onRenderTabs()}
           </TabList>
         ) : (
           <></>
         )}
 
-        <TabPanels className="w-full">
+        <TabPanels className="w-full overflow-x-hidden overflow-y-scroll">
           <TabPanel>
             <HomePanel />
           </TabPanel>

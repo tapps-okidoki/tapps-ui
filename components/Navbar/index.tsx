@@ -40,7 +40,7 @@ export function Navbar() {
   };
 
   return (
-    <section className="flex w-full items-center justify-between gap-3 border-b-[0.5px] border-b-tapps-white/20 bg-tapps-light-black px-6 py-3 transition-all duration-300 hover:brightness-110">
+    <section className="sticky top-0 z-10 flex w-full items-center justify-between gap-3 border-b-[0.5px] border-b-tapps-white/20 bg-tapps-light-black px-6 py-3 transition-all duration-300 hover:brightness-110">
       <FontAwesomeIcon
         icon={faBars}
         size="xl"
