@@ -28,4 +28,13 @@ export interface ICardItem {
   title: string;
   description: string;
   links: ICardLink;
+  count: number;
+}
+
+export interface IGameItem {
+  id: string;
+  image: string;
+  title: string;
+  description: string;
+  links: ICardLink;
 }

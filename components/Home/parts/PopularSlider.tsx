@@ -16,7 +16,6 @@ import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 export function PopularSlider() {
   const navigationPrevRef = useRef(null);
-  console.log('navigationPrevRef: ', navigationPrevRef);
   const navigationNextRef = useRef(null);
   const onRenderMostPopular = () => {
     const mostPopularList: IMostPopularItem[] = Array.from(
@@ -73,13 +72,13 @@ export function PopularSlider() {
       <button
         id="prevButton"
         ref={navigationPrevRef}
-        className="absolute left-0 top-1/2 z-10 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-tapps-lighter-black opacity-80 hover:opacity-100"
+        className="absolute left-0 top-1/2 z-10 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-[1px] border-tapps-gray bg-tapps-lighter-black opacity-80 hover:opacity-100"
       >
         <FontAwesomeIcon icon={faCaretLeft} />
       </button>
       <button
         id="nextButton"
-        className="absolute right-0 top-1/2 z-10 h-7 w-7 -translate-y-1/2 translate-x-1/2 rounded-full bg-tapps-lighter-black opacity-80 hover:opacity-100"
+        className="absolute right-0 top-1/2 z-10 h-7 w-7 -translate-y-1/2 translate-x-1/2 rounded-full border-[1px] border-tapps-gray bg-tapps-lighter-black opacity-80 hover:opacity-100"
         ref={navigationNextRef}
       >
         <FontAwesomeIcon icon={faCaretRight} />
