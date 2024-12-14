@@ -64,7 +64,7 @@ export function HomePanel() {
       return (
         <div
           key={card.id}
-          className="border-tapps-gray flex justify-between gap-4 rounded-xl border bg-tapps-light-black p-3"
+          className="flex justify-between gap-4 rounded-xl border border-tapps-gray bg-tapps-light-black p-3"
         >
           <div className="flex-1">
             <Image
@@ -78,14 +78,14 @@ export function HomePanel() {
           <div className="flex flex-[2.5] flex-col justify-between gap-1">
             <div className="flex items-start justify-between">
               <h3 className="font-semibold">{card.title}</h3>
-              <div className="text-tapps-gray bg-tapps-lighter-black grid h-5 w-5 place-items-center rounded-md">
+              <div className="grid h-5 w-5 place-items-center rounded-md bg-tapps-lighter-black text-tapps-gray">
                 <p className="text-xs">1</p>
               </div>
             </div>
-            <p className="text-tapps-gray line-clamp-2 text-xs">
+            <p className="line-clamp-2 text-xs text-tapps-gray">
               {card.description}
             </p>
-            <div className="text-tapps-gray flex gap-3 text-xs">
+            <div className="flex gap-3 text-xs text-tapps-gray">
               <Link href={card.links.apple}>
                 <FontAwesomeIcon icon={faApple} />
               </Link>
@@ -125,6 +125,51 @@ export function HomePanel() {
           </div>
         ),
         subtitle: 'Store and manage your crypto assets',
+      },
+      {
+        title: 'Exchanges DEX',
+        content: (
+          <div className="grid grid-flow-row grid-cols-3 gap-5">
+            {onRenderCards()}
+          </div>
+        ),
+        subtitle: 'Buy, sell and swap TON or wTON',
+      },
+      {
+        title: 'Marketplaces',
+        content: (
+          <div className="grid grid-flow-row grid-cols-3 gap-5">
+            {onRenderCards()}
+          </div>
+        ),
+        subtitle: 'Store and manage your crypto assets',
+      },
+      {
+        title: 'Staking',
+        content: (
+          <div className="grid grid-flow-row grid-cols-3 gap-5">
+            {onRenderCards()}
+          </div>
+        ),
+        subtitle: 'Experience social networks powered by TON Blockchain',
+      },
+      {
+        title: 'Social',
+        content: (
+          <div className="grid grid-flow-row grid-cols-3 gap-5">
+            {onRenderCards()}
+          </div>
+        ),
+        subtitle: 'Experience social networks powered by TON Blockchain',
+      },
+      {
+        title: 'Tools',
+        content: (
+          <div className="grid grid-flow-row grid-cols-3 gap-5">
+            {onRenderCards()}
+          </div>
+        ),
+        subtitle: 'Experience social networks powered by TON Blockchain',
       },
     ];
 
