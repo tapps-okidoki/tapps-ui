@@ -40,7 +40,7 @@ export function Navbar() {
   };
 
   return (
-    <section className="sticky top-0 z-10 flex w-full items-center justify-between gap-3 border-b-[0.5px] border-b-tapps-white/20 bg-tapps-light-black px-6 py-3 transition-all duration-300 hover:brightness-110">
+    <section className="sticky top-0 z-20 flex w-full items-center justify-between gap-3 border-b-[0.5px] border-b-tapps-white/20 bg-tapps-light-black px-6 py-3 transition-all duration-300 hover:brightness-110">
       <FontAwesomeIcon
         icon={faBars}
         size="xl"
@@ -54,12 +54,12 @@ export function Navbar() {
           alt="Google Icon"
           width={20000}
           height={20000}
-          className="h-6 w-6"
+          className="hidden h-6 w-6 md:block"
         />
-        <button className="rounded-full bg-tapps-blue px-3 py-2">
+        <button className="hidden rounded-full bg-tapps-blue px-3 py-2 md:block">
           Sign up
         </button>
-        <button>Log in</button>
+        <button className="py-2">Log in</button>
       </div>
     </section>
   );

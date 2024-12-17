@@ -5,9 +5,10 @@ import './globals.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { Navbar } from '@tapps/components/Navbar';
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { AppContext } from '@tapps/contexts/AppContext';
 import { IShowSidebarStatus } from '@tapps/types';
+import { useDeviceScreen } from '@tapps/hooks/useMobileScreen';
 config.autoAddCss = false;
 
 const geistSans = localFont({
@@ -26,9 +27,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isMobile = useDeviceScreen('768px');
   const [showSideBar, setShowSideBar] = useState<IShowSidebarStatus>(
     IShowSidebarStatus.show,
   );
+  useEffect(() => {
+    setShowSideBar(
+      isMobile ? IShowSidebarStatus.hide : IShowSidebarStatus.show,
+    );
+  }, [isMobile]);
   return (
     <html lang="en">
       <head>

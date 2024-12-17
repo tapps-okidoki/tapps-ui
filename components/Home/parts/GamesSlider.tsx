@@ -36,7 +36,7 @@ export function GamesSlider() {
           <div
             className={`relative ${
               index === activeIndex
-                ? 'bg-gradient-custom rounded-2xl p-[1px]'
+                ? 'rounded-2xl bg-gradient-custom p-[1px]'
                 : 'scale-75'
             } cursor-pointer transition-all duration-300`} // Special effect for center slide
           >
@@ -50,8 +50,8 @@ export function GamesSlider() {
                 loading="eager"
               />
               <div className="flex flex-col gap-3 p-3">
-                <h3 className="font-bold">{game.title}</h3>
-                <p className="line-clamp-2 text-xs text-tapps-gray">
+                <h3 className="text-sm font-bold md:text-base">{game.title}</h3>
+                <p className="line-clamp-2 text-[11px] text-tapps-gray md:text-xs">
                   {game.description}
                 </p>
                 <div className="mx-auto h-[0.5px] w-full rounded-full bg-tapps-lighter-black"></div>
@@ -78,7 +78,7 @@ export function GamesSlider() {
   };
   return (
     <div className="w-full">
-      <div className="bg-firefly-radial relative py-14">
+      <div className="relative bg-firefly-radial py-14">
         <Swiper
           className=""
           modules={[FreeMode, Autoplay, Keyboard]}
@@ -90,6 +90,14 @@ export function GamesSlider() {
           }}
           keyboard={true}
           slidesPerView={3}
+          breakpoints={{
+            375: {
+              slidesPerView: 1.8,
+            },
+            768: {
+              slidesPerView: 3,
+            },
+          }}
           loop
           freeMode
           style={{ zIndex: '0' }}

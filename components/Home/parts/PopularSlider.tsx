@@ -41,7 +41,9 @@ export function PopularSlider() {
           />
           <div className="mt-3 flex flex-col gap-3">
             <h3 className="text-sm font-bold">{popular.title}</h3>
-            <p className="text-xs text-tapps-gray">{popular.description}</p>
+            <p className="line-clamp-2 text-xs text-tapps-gray">
+              {popular.description}
+            </p>
           </div>
         </SwiperSlide>
       );
@@ -62,10 +64,17 @@ export function PopularSlider() {
           disableOnInteraction: false,
           pauseOnMouseEnter: true,
         }}
-        slidesPerView={4}
         loop
         freeMode
         style={{ zIndex: '0' }}
+        breakpoints={{
+          375: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 4,
+          },
+        }}
       >
         {onRenderMostPopular()}
       </Swiper>

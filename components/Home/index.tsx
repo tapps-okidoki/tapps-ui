@@ -104,7 +104,7 @@ export function HomeComponent() {
         className="relative flex min-h-screen w-full"
       >
         {showSideBar === IShowSidebarStatus.show ? (
-          <TabList className="sticky top-[60.5px] z-20 flex h-[calc(100dvh-60.5px)] min-w-[17%] flex-col bg-tapps-light-black">
+          <TabList className="fixed top-[60.5px] z-20 flex h-[calc(100dvh-60.5px)] w-full flex-col bg-tapps-light-black md:sticky md:w-[17%]">
             {onRenderTabs()}
           </TabList>
         ) : (

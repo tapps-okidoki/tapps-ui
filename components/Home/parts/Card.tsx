@@ -13,7 +13,7 @@ interface Props {
 
 export function Card({ card, index }: Props) {
   return (
-    <div className="flex justify-between gap-4 rounded-xl border border-tapps-gray bg-tapps-light-black p-3">
+    <div className="flex flex-col justify-between gap-2 rounded-xl border border-tapps-gray bg-tapps-light-black p-3 md:flex-row md:gap-4">
       <div className="flex-1">
         <Image
           src={card.image}
@@ -23,14 +23,14 @@ export function Card({ card, index }: Props) {
           className="aspect-square w-full object-contain"
         />
       </div>
-      <div className="flex flex-[2.5] flex-col justify-between gap-1">
+      <div className="flex flex-[2.5] flex-col justify-between gap-2 md:gap-1">
         <div className="flex items-start justify-between">
-          <h3 className="font-semibold">{card.title}</h3>
+          <h3 className="text-sm font-semibold md:text-base">{card.title}</h3>
           <div className="grid h-5 w-5 place-items-center rounded-md bg-tapps-lighter-black text-tapps-gray">
             <p className="text-xs">{card.count}</p>
           </div>
         </div>
-        <p className="line-clamp-2 text-xs text-tapps-gray">
+        <p className="line-clamp-2 text-[11px] text-tapps-gray md:text-xs">
           {card.description}
         </p>
         <div className="flex gap-3 text-xs text-tapps-gray">

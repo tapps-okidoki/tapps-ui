@@ -6,11 +6,13 @@ import React from 'react';
 import { PopularSlider } from './PopularSlider';
 import { Card } from './Card';
 import { GamesSlider } from './GamesSlider';
+import { useDeviceScreen } from '@tapps/hooks/useMobileScreen';
 
 export function HomePanel() {
+  const isMobile = useDeviceScreen('768px');
   const onRenderPromotedApps = () => {
     const promotedAppList: IPromotedAppItem[] = Array.from(
-      { length: 15 },
+      { length: isMobile ? 5 : 15 },
       () => ({
         id: crypto.randomUUID().slice(0, 5),
         image: `/promoteapps/promote-1.png`,
@@ -77,7 +79,7 @@ export function HomePanel() {
       {
         title: 'Wallet',
         content: (
-          <div className="grid grid-flow-row grid-cols-3 gap-5">
+          <div className="grid grid-flow-row grid-cols-2 gap-5 md:grid-cols-3">
             {onRenderCards()}
           </div>
         ),
@@ -86,7 +88,7 @@ export function HomePanel() {
       {
         title: 'Exchanges DEX',
         content: (
-          <div className="grid grid-flow-row grid-cols-3 gap-5">
+          <div className="grid grid-flow-row grid-cols-2 gap-5 md:grid-cols-3">
             {onRenderCards()}
           </div>
         ),
@@ -95,7 +97,7 @@ export function HomePanel() {
       {
         title: 'Marketplaces',
         content: (
-          <div className="grid grid-flow-row grid-cols-3 gap-5">
+          <div className="grid grid-flow-row grid-cols-2 gap-5 md:grid-cols-3">
             {onRenderCards()}
           </div>
         ),
@@ -109,7 +111,7 @@ export function HomePanel() {
       {
         title: 'Staking',
         content: (
-          <div className="grid grid-flow-row grid-cols-3 gap-5">
+          <div className="grid grid-flow-row grid-cols-2 gap-5 md:grid-cols-3">
             {onRenderCards()}
           </div>
         ),
@@ -118,7 +120,7 @@ export function HomePanel() {
       {
         title: 'Social',
         content: (
-          <div className="grid grid-flow-row grid-cols-3 gap-5">
+          <div className="grid grid-flow-row grid-cols-2 gap-5 md:grid-cols-3">
             {onRenderCards()}
           </div>
         ),
@@ -127,7 +129,7 @@ export function HomePanel() {
       {
         title: 'Tools',
         content: (
-          <div className="grid grid-flow-row grid-cols-3 gap-5">
+          <div className="grid grid-flow-row grid-cols-2 gap-5 md:grid-cols-3">
             {onRenderCards()}
           </div>
         ),
@@ -140,10 +142,12 @@ export function HomePanel() {
         <section key={section.title} className="flex w-full flex-col gap-5">
           <div className="flex items-center justify-between gap-5">
             <div className="flex flex-col gap-1">
-              <h2 className="text-3xl font-bold">{section.title}</h2>
-              <p className="text-tapps-gray">{section.subtitle}</p>
+              <h2 className="text-xl font-bold md:text-3xl">{section.title}</h2>
+              <p className="text-sm text-tapps-gray md:text-base">
+                {section.subtitle}
+              </p>
             </div>
-            <button className="flex items-center gap-4 text-tapps-blue hover:underline hover:brightness-125">
+            <button className="flex items-center gap-4 whitespace-nowrap text-sm text-tapps-blue hover:underline hover:brightness-125 md:text-base">
               See All
               <FontAwesomeIcon icon={faChevronRight} />
             </button>
@@ -155,14 +159,14 @@ export function HomePanel() {
   };
 
   return (
-    <div className="flex w-full flex-col items-center gap-16">
-      <section className="bg-home-frame-1 h-[60dvh] px-16">
-        <div className="mt-32 flex flex-col items-center gap-32">
-          <h1 className="text-4xl font-black text-tapps-purple">
+    <div className="flex w-full flex-col items-center gap-5 md:gap-16">
+      <section className="bg-home-frame-1 h-[40dvh] px-5 text-center md:h-[35dvh] md:px-16 lg:h-[60dvh]">
+        <div className="mt-12 flex flex-col items-center gap-20 lg:mt-32 lg:gap-32">
+          <h1 className="text-2xl font-black text-tapps-purple md:text-4xl">
             Explore 1079 apps in TON Ecosystem
           </h1>
-          <div className="flex gap-6">
-            <div className="flex-1">
+          <div className="flex flex-wrap gap-6">
+            <div className="w-full md:flex-1">
               <Image
                 src="/frames/frame-2.png"
                 alt="Frame 2"
@@ -171,7 +175,7 @@ export function HomePanel() {
                 className="h-auto w-full object-contain"
               />
             </div>
-            <div className="flex-1">
+            <div className="w-full md:flex-1">
               <Image
                 src="/frames/frame-3.png"
                 alt="Frame 3"
@@ -183,7 +187,7 @@ export function HomePanel() {
           </div>
         </div>
       </section>
-      <div className="flex w-full flex-col items-center gap-16 px-16">
+      <div className="mt-64 flex w-full flex-col items-center gap-5 px-5 md:mt-0 md:gap-16 md:px-16">
         {onRenderSections()}
       </div>
     </div>
