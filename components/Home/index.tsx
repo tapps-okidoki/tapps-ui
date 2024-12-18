@@ -19,13 +19,15 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { IShowSidebarStatus } from '@tapps/types';
 import { HomePanel } from './parts/HomePanel';
 import { AppContext } from '@tapps/contexts/AppContext';
+import { useDeviceScreen } from '@tapps/hooks/useMobileScreen';
 
 export function HomeComponent() {
-  const { showSideBar } = useContext(AppContext);
+  const isMobile = useDeviceScreen('768px');
+  const { showSideBar, setShowSideBar } = useContext(AppContext);
   const searchParams = useSearchParams();
   const router = useRouter();
   const currentTab = searchParams.get('tab');
-  const [selectedIndex, setSelectedIndex] = useState(Number(currentTab) ?? 0);
+  const [selectedIndex, setSelectedIndex] = useState(Number(currentTab ?? 0));
   const getTabClasses = (selected: boolean) =>
     `${
       selected
@@ -100,6 +102,11 @@ export function HomeComponent() {
         onChange={(index) => {
           setSelectedIndex(index);
           router.push(`?tab=${index}`);
+          setTimeout(() => {
+            if (isMobile && setShowSideBar) {
+              setShowSideBar(IShowSidebarStatus.hide);
+            }
+          }, 100);
         }}
         className="relative flex min-h-screen w-full"
       >
