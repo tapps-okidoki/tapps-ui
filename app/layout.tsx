@@ -9,6 +9,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { AppContext } from '@tapps/contexts/AppContext';
 import { IShowSidebarStatus } from '@tapps/types';
 import { useDeviceScreen } from '@tapps/hooks/useMobileScreen';
+import { ReactQueryProvider } from './ReactQuery/ReactQueryProvider';
 config.autoAddCss = false;
 
 const geistSans = localFont({
@@ -45,10 +46,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} min-h-[100dvh] w-[100dvw] bg-tapps-black text-tapps-white antialiased`}
       >
         <Suspense>
-          <AppContext.Provider value={{ showSideBar, setShowSideBar }}>
-            <Navbar />
-            {children}
-          </AppContext.Provider>
+          <ReactQueryProvider>
+            <AppContext.Provider value={{ showSideBar, setShowSideBar }}>
+              <Navbar />
+              {children}
+            </AppContext.Provider>
+          </ReactQueryProvider>
         </Suspense>
       </body>
     </html>

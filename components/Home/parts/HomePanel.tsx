@@ -1,48 +1,52 @@
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ICardItem, IPromotedAppItem } from '@tapps/types';
+import { ICardItem } from '@tapps/types';
 import Image from 'next/image';
 import React from 'react';
 import { PopularSlider } from './PopularSlider';
 import { Card } from './Card';
 import { GamesSlider } from './GamesSlider';
-import { useDeviceScreen } from '@tapps/hooks/useMobileScreen';
+import { useGetAppList } from '@tapps/hooks/useGetAppList';
+import { PromoteAppsSlider } from './PromotedAppsSlider';
+import TappsLoading from '@tapps/components/Loading';
 
 export function HomePanel() {
-  const isMobile = useDeviceScreen('768px');
-  const onRenderPromotedApps = () => {
-    const promotedAppList: IPromotedAppItem[] = Array.from(
-      { length: isMobile ? 5 : 15 },
-      () => ({
-        id: crypto.randomUUID().slice(0, 5),
-        image: `/promoteapps/promote-1.png`,
-      }),
-    );
-    const centerIndex = Math.floor(promotedAppList.length / 2);
+  const { data, isLoading } = useGetAppList();
+  console.log('data: ', data?.apps);
+  // const isMobile = useDeviceScreen('768px');
+  // const onRenderPromotedApps = () => {
+  //   const promotedAppList: IPromotedAppItem[] = Array.from(
+  //     { length: isMobile ? 5 : 15 },
+  //     () => ({
+  //       id: crypto.randomUUID().slice(0, 5),
+  //       image: `/promoteapps/promote-1.png`,
+  //     }),
+  //   );
+  //   const centerIndex = Math.floor(promotedAppList.length / 2);
 
-    return promotedAppList.map((app, index) => {
-      // Calculate opacity based on the distance from the center
-      const distanceFromCenter = Math.abs(centerIndex - index);
-      const maxDistance = Math.ceil(promotedAppList.length / 2);
-      const opacity = 1 - distanceFromCenter / maxDistance;
+  //   return promotedAppList.map((app, index) => {
+  //     // Calculate opacity based on the distance from the center
+  //     const distanceFromCenter = Math.abs(centerIndex - index);
+  //     const maxDistance = Math.ceil(promotedAppList.length / 2);
+  //     const opacity = 1 - distanceFromCenter / maxDistance;
 
-      return (
-        <div
-          key={app.id}
-          className="flex-1 cursor-pointer transition-transform hover:scale-110"
-          style={{ opacity }}
-        >
-          <Image
-            src={app.image}
-            alt={`App ${index + 1}`}
-            height={200}
-            width={200}
-            className="h-auto w-full object-contain"
-          />
-        </div>
-      );
-    });
-  };
+  //     return (
+  //       <div
+  //         key={app.id}
+  //         className="flex-1 cursor-pointer transition-transform hover:scale-110"
+  //         style={{ opacity }}
+  //       >
+  //         <Image
+  //           src={app.image}
+  //           alt={`App ${index + 1}`}
+  //           height={200}
+  //           width={200}
+  //           className="h-auto w-full object-contain"
+  //         />
+  //       </div>
+  //     );
+  //   });
+  // };
 
   const onRenderCards = () => {
     const cardList: ICardItem[] = Array.from({ length: 9 }, (_, index) => ({
@@ -64,11 +68,19 @@ export function HomePanel() {
     });
   };
 
+  if (isLoading) {
+    return <TappsLoading />;
+  }
+
+  if (!data) {
+    return <></>;
+  }
+
   const onRenderSections = () => {
     const sectionList = [
       {
         title: 'Promoted App',
-        content: <div className="flex gap-6">{onRenderPromotedApps()}</div>,
+        content: <PromoteAppsSlider appList={data?.apps} />,
         subtitle: '',
       },
       {
