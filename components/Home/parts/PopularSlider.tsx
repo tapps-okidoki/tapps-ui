@@ -74,6 +74,9 @@ export function PopularSlider() {
           768: {
             slidesPerView: 4,
           },
+          1024: {
+            slidesPerView: 6,
+          },
         }}
       >
         {onRenderMostPopular()}

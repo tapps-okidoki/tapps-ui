@@ -1,3 +1,5 @@
+import { ECategoryName } from './enum';
+
 export enum IShowSidebarStatus {
   show = 'show',
   hide = 'hide',
@@ -63,7 +65,7 @@ export interface IGetAllAppsResResultAppItem {
 
 export interface IGetAllAppsResResult {
   apps: IGetAllAppsResResultAppItem[];
-  categories: {
+  cateory: {
     _id: string;
     system: 'tapps';
     create_at: Date;
@@ -71,7 +73,7 @@ export interface IGetAllAppsResResult {
     change_at: Date;
     change_by: 'tapps';
     del_flag: boolean;
-    name: string;
+    name: ECategoryName;
     description: string;
     image: string;
     __v: 0;

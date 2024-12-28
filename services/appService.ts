@@ -6,6 +6,6 @@ export const appService = {
   getAllApps: async () => {
     const response: AxiosResponse<IGetAllAppsRes> =
       await https.post(`core/app-list`);
-    return response.data.result[0];
+    return response.data.result;
   },
 };

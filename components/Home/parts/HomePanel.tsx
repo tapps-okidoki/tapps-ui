@@ -1,6 +1,10 @@
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import {
+  faChevronRight,
+  faGlobe,
+  faRobot,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ICardItem } from '@tapps/types';
+import { ICardItem, IGetAllAppsResResultAppItem } from '@tapps/types';
 import Image from 'next/image';
 import React from 'react';
 import { PopularSlider } from './PopularSlider';
@@ -9,63 +13,87 @@ import { GamesSlider } from './GamesSlider';
 import { useGetAppList } from '@tapps/hooks/useGetAppList';
 import { PromoteAppsSlider } from './PromotedAppsSlider';
 import TappsLoading from '@tapps/components/Loading';
+import { ECategoryName } from '@tapps/types/enum';
+import Link from 'next/link';
+import { faApple, faTelegram } from '@fortawesome/free-brands-svg-icons';
 
 export function HomePanel() {
   const { data, isLoading } = useGetAppList();
-  console.log('data: ', data?.apps);
-  // const isMobile = useDeviceScreen('768px');
-  // const onRenderPromotedApps = () => {
-  //   const promotedAppList: IPromotedAppItem[] = Array.from(
-  //     { length: isMobile ? 5 : 15 },
-  //     () => ({
-  //       id: crypto.randomUUID().slice(0, 5),
-  //       image: `/promoteapps/promote-1.png`,
-  //     }),
-  //   );
-  //   const centerIndex = Math.floor(promotedAppList.length / 2);
-
-  //   return promotedAppList.map((app, index) => {
-  //     // Calculate opacity based on the distance from the center
-  //     const distanceFromCenter = Math.abs(centerIndex - index);
-  //     const maxDistance = Math.ceil(promotedAppList.length / 2);
-  //     const opacity = 1 - distanceFromCenter / maxDistance;
-
-  //     return (
-  //       <div
-  //         key={app.id}
-  //         className="flex-1 cursor-pointer transition-transform hover:scale-110"
-  //         style={{ opacity }}
-  //       >
-  //         <Image
-  //           src={app.image}
-  //           alt={`App ${index + 1}`}
-  //           height={200}
-  //           width={200}
-  //           className="h-auto w-full object-contain"
-  //         />
-  //       </div>
-  //     );
-  //   });
-  // };
-
-  const onRenderCards = () => {
-    const cardList: ICardItem[] = Array.from({ length: 9 }, (_, index) => ({
-      id: crypto.randomUUID().slice(0, 5),
-      image: `/card/card-1.png`,
-      title: `Swapter ${index}`,
-      description:
-        'The most feature-rich wallet and browser extension for TON – with multi-accounts, the most profitable staking and swaps, Ledger, tokens (jettons), NFT, TON DNS, TON Sites, TON Proxy, and TON Magic.',
-      links: {
-        apple: '',
-        android: '',
-        telegram: '',
-        web: '',
-      },
-      count: index,
-    }));
-    return cardList.map((card, index) => {
-      return <Card key={card.id} card={card} index={index} />;
-    });
+  const onRenderCards = (apps?: IGetAllAppsResResultAppItem[]) => {
+    if (apps) {
+      return (apps ?? [])
+        .sort((a, b) => Number(a.app_position) - Number(b.app_position))
+        .slice(0, 9)
+        .map((card, index) => {
+          return (
+            <Card
+              key={card._id + Math.random().toString()}
+              card={card}
+              index={index}
+            />
+          );
+        });
+    } else {
+      const cardList: ICardItem[] = Array.from({ length: 9 }, (_, index) => ({
+        id: crypto.randomUUID().slice(0, 5),
+        image: `/card/card-1.png`,
+        title: `Swapter ${index}`,
+        description:
+          'The most feature-rich wallet and browser extension for TON – with multi-accounts, the most profitable staking and swaps, Ledger, tokens (jettons), NFT, TON DNS, TON Sites, TON Proxy, and TON Magic.',
+        links: {
+          apple: '',
+          android: '',
+          telegram: '',
+          web: '',
+        },
+        count: index,
+      }));
+      return cardList.map((card, index) => {
+        return (
+          <div
+            key={card.id}
+            className="flex flex-col justify-between gap-2 rounded-xl border border-tapps-gray bg-tapps-light-black p-3 lg:flex-row lg:gap-4"
+          >
+            <div className="flex-1">
+              <Image
+                src={card.image}
+                alt={`Card ${index + 1}`}
+                height={200}
+                width={200}
+                className="aspect-square w-full object-contain"
+              />
+            </div>
+            <div className="flex flex-[2.5] flex-col justify-between gap-2 md:gap-1">
+              <div className="flex items-start justify-between">
+                <h3 className="text-sm font-semibold md:text-base">
+                  {card.title}
+                </h3>
+                <div className="grid h-5 w-5 place-items-center rounded-md bg-tapps-lighter-black text-tapps-gray">
+                  <p className="text-xs">{card.count}</p>
+                </div>
+              </div>
+              <p className="line-clamp-2 text-[11px] text-tapps-gray md:text-xs">
+                {card.description}
+              </p>
+              <div className="flex gap-3 text-xs text-tapps-gray">
+                <Link href={card.links.apple}>
+                  <FontAwesomeIcon icon={faApple} />
+                </Link>
+                <Link href={card.links.android}>
+                  <FontAwesomeIcon icon={faRobot} />
+                </Link>
+                <Link href={card.links.telegram}>
+                  <FontAwesomeIcon icon={faTelegram} />
+                </Link>
+                <Link href={card.links.web}>
+                  <FontAwesomeIcon icon={faGlobe} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        );
+      });
+    }
   };
 
   if (isLoading) {
@@ -80,7 +108,14 @@ export function HomePanel() {
     const sectionList = [
       {
         title: 'Promoted App',
-        content: <PromoteAppsSlider appList={data?.apps} />,
+        content: (
+          <PromoteAppsSlider
+            appList={
+              data?.find((i) => i.cateory.name === ECategoryName.EXCHANGE)
+                ?.apps ?? []
+            }
+          />
+        ),
         subtitle: '',
       },
       {
@@ -92,7 +127,9 @@ export function HomePanel() {
         title: 'Wallet',
         content: (
           <div className="grid grid-flow-row grid-cols-2 gap-5 md:grid-cols-3">
-            {onRenderCards()}
+            {onRenderCards(
+              data.find((i) => i.cateory.name === ECategoryName.WALLET)?.apps,
+            )}
           </div>
         ),
         subtitle: 'Store and manage your crypto assets',
@@ -101,7 +138,9 @@ export function HomePanel() {
         title: 'Exchanges DEX',
         content: (
           <div className="grid grid-flow-row grid-cols-2 gap-5 md:grid-cols-3">
-            {onRenderCards()}
+            {onRenderCards(
+              data.find((i) => i.cateory.name === ECategoryName.EXCHANGE)?.apps,
+            )}
           </div>
         ),
         subtitle: 'Buy, sell and swap TON or wTON',
@@ -124,7 +163,9 @@ export function HomePanel() {
         title: 'Staking',
         content: (
           <div className="grid grid-flow-row grid-cols-2 gap-5 md:grid-cols-3">
-            {onRenderCards()}
+            {onRenderCards(
+              data.find((i) => i.cateory.name === ECategoryName.STAKING)?.apps,
+            )}
           </div>
         ),
         subtitle: 'Experience social networks powered by TON Blockchain',

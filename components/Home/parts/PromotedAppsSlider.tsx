@@ -19,7 +19,7 @@ interface Props {
 export function PromoteAppsSlider({ appList }: Props) {
   const isMobile = useDeviceScreen('768px');
   const isTablet = useDeviceScreen('1024px');
-  const visibleSlides = isMobile ? 5 : isTablet ? 10 : 15;
+  const visibleSlides = isTablet ? 10 : isMobile ? 5 : 15;
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const onRenderMostPopular = () => {
     return appList?.map((app, index) => {
