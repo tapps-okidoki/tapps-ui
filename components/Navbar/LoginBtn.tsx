@@ -37,6 +37,7 @@ export function LoginBtn() {
     const telegramUrl = `https://oauth.telegram.org/auth?bot_id=${botId}&origin=${origin}&request_access=write&return_to=${returnTo}`;
     window.open(telegramUrl); // Open Telegram login in a new tab
   };
+  console.debug('handleLogin: ', handleLogin);
 
   return telegramUser ? (
     <p className="py-2 font-semibold">@{telegramUser.username}</p>
