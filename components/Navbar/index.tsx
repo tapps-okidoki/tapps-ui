@@ -10,6 +10,7 @@ import { UrlObject } from 'url';
 import { AppContext } from '@tapps/contexts/AppContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { UserBtn } from './UserBtn';
+import { useCloseOnOutsideClickOrEsc } from '@tapps/hooks/useCloseOnOutsideClickOrEsc';
 
 export function Navbar() {
   const searchParams = useSearchParams();
@@ -108,85 +109,90 @@ export function Navbar() {
       }
     }
   }, [userLoginData, router]);
+  const [isOpenLoginDialog, setIsOpenLoginDialog] = useState(false);
+  const closeLoginDialog = () => {
+    setIsOpenLoginDialog(false);
+  };
+
+  const loginContentRef =
+    useCloseOnOutsideClickOrEsc<HTMLDivElement>(closeLoginDialog);
 
   return (
-    <section className="sticky top-0 z-20 flex w-full items-center justify-between gap-3 border-b-[0.5px] border-b-tapps-white/20 bg-tapps-light-black px-6 py-3 transition-all duration-300 hover:brightness-110">
-      <FontAwesomeIcon
-        icon={faBars}
-        size="xl"
-        className="cursor-pointer"
-        onClick={onHandleShowSideBar}
-      />
-      <nav className="flex items-center gap-3">{onRenderNavItems()}</nav>
-      <div className="flex items-center gap-5 text-sm font-bold">
-        <Image
-          src="/google.svg"
-          alt="Google Icon"
-          width={20000}
-          height={20000}
-          className="hidden h-6 w-6 md:block"
+    <>
+      <dialog
+        open={isOpenLoginDialog}
+        className="fixed inset-0 z-30 mx-auto w-[90vw] bg-transparent md:w-fit"
+      >
+        <div ref={loginContentRef} className="flex items-center justify-center">
+          <div className="flex w-fit flex-col gap-7 rounded-xl border border-tapps-gray bg-tapps-black p-5 text-tapps-white">
+            <h2 className="text-left text-2xl font-bold">Log in</h2>
+            <div className="flex flex-col gap-6">
+              <div className="flex gap-3">
+                <FontAwesomeIcon
+                  icon={faBell}
+                  className="text-xl text-tapps-blue"
+                />
+                <p>Get notified about app moderation</p>
+              </div>
+              <div className="flex gap-3">
+                <FontAwesomeIcon
+                  icon={faPenToSquare}
+                  className="text-xl text-tapps-blue"
+                />
+                <p>Leave reviews on applications</p>
+              </div>
+              <div className="flex gap-3">
+                <FontAwesomeIcon
+                  icon={faArrowDown}
+                  className="text-xl text-tapps-blue"
+                />
+                <p>Receive catalog updates</p>
+              </div>
+              <div
+                ref={telegramWrapperRef}
+                className="flex justify-center"
+              ></div>
+            </div>
+            <div className="flex gap-1 text-base">
+              <p>No Telegram? Install the app from the official</p>
+              <Link
+                href={'https://telegram.org/'}
+                className="text-tapps-blue hover:underline"
+              >
+                website
+              </Link>
+            </div>
+          </div>
+        </div>
+      </dialog>
+      <section className="sticky top-0 z-20 flex w-full items-center justify-between gap-3 border-b-[0.5px] border-b-tapps-white/20 bg-tapps-light-black px-6 py-3 transition-all duration-300 hover:brightness-110">
+        <FontAwesomeIcon
+          icon={faBars}
+          size="xl"
+          className="cursor-pointer"
+          onClick={onHandleShowSideBar}
         />
-        <button className="hidden rounded-full bg-tapps-blue px-3 py-2 md:block">
-          Sign up
-        </button>
-        {userLoginData.username ? (
-          <UserBtn username={`@${userLoginData.username}`} />
-        ) : (
-          <>
-            <button popoverTarget="my-popover" className="py-2">
+        <nav className="flex items-center gap-3">{onRenderNavItems()}</nav>
+        <div className="flex items-center gap-5 text-sm font-bold">
+          <Image
+            src="/google.svg"
+            alt="Google Icon"
+            width={20000}
+            height={20000}
+            className="hidden h-6 w-6 md:block"
+          />
+          <button className="hidden rounded-full bg-tapps-blue px-3 py-2 md:block">
+            Sign up
+          </button>
+          {userLoginData.username ? (
+            <UserBtn username={`@${userLoginData.username}`} />
+          ) : (
+            <button className="py-2" onClick={() => setIsOpenLoginDialog(true)}>
               Log in
             </button>
-
-            <div
-              popover="auto"
-              id="my-popover"
-              className="z-30 bg-transparent backdrop-blur-sm"
-            >
-              <div className="flex h-full items-center justify-center">
-                <div className="flex w-fit flex-col gap-7 rounded-xl border border-tapps-gray bg-tapps-black p-5 text-tapps-white">
-                  <h2 className="text-left text-2xl font-bold">Log in</h2>
-                  <div className="flex flex-col gap-6">
-                    <div className="flex gap-3">
-                      <FontAwesomeIcon
-                        icon={faBell}
-                        className="text-xl text-tapps-blue"
-                      />
-                      <p>Get notified about app moderation</p>
-                    </div>
-                    <div className="flex gap-3">
-                      <FontAwesomeIcon
-                        icon={faPenToSquare}
-                        className="text-xl text-tapps-blue"
-                      />
-                      <p>Leave reviews on applications</p>
-                    </div>
-                    <div className="flex gap-3">
-                      <FontAwesomeIcon
-                        icon={faArrowDown}
-                        className="text-xl text-tapps-blue"
-                      />
-                      <p>Receive catalog updates</p>
-                    </div>
-                    <div
-                      ref={telegramWrapperRef}
-                      className="flex justify-center"
-                    ></div>
-                  </div>
-                  <div className="flex gap-1 text-base">
-                    <p>No Telegram? Install the app from the official</p>
-                    <Link
-                      href={'https://telegram.org/'}
-                      className="text-tapps-blue hover:underline"
-                    >
-                      website
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-      </div>
-    </section>
+          )}
+        </div>
+      </section>
+    </>
   );
 }
