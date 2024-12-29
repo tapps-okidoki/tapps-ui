@@ -1,6 +1,7 @@
 'use client';
 
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -67,12 +68,11 @@ export function Navbar() {
     scriptElement.src = 'https://telegram.org/js/telegram-widget.js?22';
     scriptElement.async = true;
     scriptElement.setAttribute('data-telegram-login', 'TappsOkiBot');
-    scriptElement.setAttribute('data-size', 'medium');
+    scriptElement.setAttribute('data-size', 'large');
     scriptElement.setAttribute(
       'data-auth-url',
       'https://tapps-okidoki.vercel.app/',
     );
-    scriptElement.setAttribute('data-userpic', 'false');
 
     scriptElement.setAttribute('data-request-access', 'write');
 
@@ -86,14 +86,39 @@ export function Navbar() {
         className="fixed inset-0 z-30 mx-auto w-[90vw] bg-transparent md:w-fit"
       >
         <div className="flex items-center justify-center">
-          <div className="flex items-center gap-3 rounded-xl bg-tapps-white px-3 py-5">
-            <h2 className="font-bold">Log in</h2>
-            <p>Get notified about app moderation</p>
-            <p>Leave reviews on applications</p>
-            <p>Receive catalog updates</p>
+          <div className="flex flex-col gap-5 rounded-xl border border-tapps-gray bg-tapps-black p-5 text-tapps-white">
+            <h2 className="text-left text-2xl font-bold">Log in</h2>
+            <div className="flex gap-3">
+              <FontAwesomeIcon
+                icon={faBell}
+                className="text-xl text-tapps-blue"
+              />
+              <p>Get notified about app moderation</p>
+            </div>
+            <div className="flex gap-3">
+              <FontAwesomeIcon
+                icon={faPenToSquare}
+                className="text-xl text-tapps-blue"
+              />
+              <p>Leave reviews on applications</p>
+            </div>
+            <div className="flex gap-3">
+              <FontAwesomeIcon
+                icon={faArrowDown}
+                className="text-xl text-tapps-blue"
+              />
+              <p>Receive catalog updates</p>
+            </div>
             <div ref={telegramWrapperRef}></div>
-            <p>No Telegram? Install the app from the official</p>
-            <Link href={'https://telegram.org/'}>website</Link>
+            <div className="flex gap-1 text-base">
+              <p>No Telegram? Install the app from the official</p>
+              <Link
+                href={'https://telegram.org/'}
+                className="text-tapps-blue hover:underline"
+              >
+                website
+              </Link>
+            </div>
           </div>
         </div>
       </dialog>
