@@ -1,5 +1,5 @@
 import { ITelegramUserInfo } from '@tapps/types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
 export function LoginBtn() {
@@ -39,11 +39,30 @@ export function LoginBtn() {
   };
   console.debug('handleLogin: ', handleLogin);
 
+  const telegramWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scriptElement = document.createElement('script');
+    scriptElement.src = 'https://telegram.org/js/telegram-widget.js?22';
+    scriptElement.async = true;
+    scriptElement.setAttribute('data-telegram-login', 'TappsOkiBot');
+    scriptElement.setAttribute('data-size', 'large');
+    scriptElement.setAttribute(
+      'data-auth-url',
+      'https://tapps-okidoki.vercel.app/',
+    );
+    scriptElement.setAttribute('data-request-access', 'write');
+
+    telegramWrapperRef?.current?.appendChild(scriptElement);
+  }, []);
+
   return telegramUser ? (
     <p className="py-2 font-semibold">@{telegramUser.username}</p>
   ) : (
-    <button className="py-2" onClick={handleLogin}>
-      Log in with Telegram
-    </button>
+    <div ref={telegramWrapperRef} className="bg-white"></div>
+
+    // <button className="py-2" onClick={handleLogin}>
+    //   Log in with Telegram
+    // </button>
   );
 }
