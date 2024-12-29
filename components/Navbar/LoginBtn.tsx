@@ -19,7 +19,9 @@ export function LoginBtn() {
     if (tgAuthResultParam) {
       console.log('tgAuthResultParam: ', tgAuthResultParam);
       try {
-        const decoded: ITelegramUserInfo = jwtDecode(tgAuthResultParam); // Cast to ITelegramUserInfo
+        const decoded: ITelegramUserInfo = jwtDecode(tgAuthResultParam, {
+          header: true,
+        }); // Cast to ITelegramUserInfo
         console.log('decoded: ', decoded);
         setTelegramUser(decoded); // Setting the decoded result directly
       } catch (error) {
