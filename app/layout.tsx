@@ -66,11 +66,6 @@ export default function RootLayout({
 
     // Attach onTelegramAuth to window object
     window.onTelegramAuth = onTelegramAuth;
-
-    // Cleanup function to remove it when the component is unmounted
-    return () => {
-      delete window.onTelegramAuth; // No TypeScript error now
-    };
   }, []);
 
   return (
