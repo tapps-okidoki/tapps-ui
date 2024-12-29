@@ -85,3 +85,15 @@ export interface IGetAllAppsRes {
   result: IGetAllAppsResResult[];
   status: string;
 }
+
+export interface ITelegramUserInfo {
+  id: number;
+  is_bot?: boolean;
+  first_name: string;
+  last_name?: string;
+  username?: string;
+  language_code?: string;
+  is_premium?: boolean;
+  photo_url?: string;
+  isNewUser?: boolean;
+}

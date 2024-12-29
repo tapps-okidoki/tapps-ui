@@ -1,21 +1,27 @@
+import { ITelegramUserInfo } from '@tapps/types';
 import React, { useEffect, useState } from 'react';
+import jwt from 'jsonwebtoken';
 
 export function LoginBtn() {
-  const [tgAuthResult, setTgAuthResult] = useState<string | null>(null);
-  console.log('tgAuthResult: ', tgAuthResult);
-  const a = decodeURIComponent(tgAuthResult ?? '');
-  console.log('a: ', a);
+  const [telegramUser, setTelegramUser] = useState<ITelegramUserInfo | null>(
+    null,
+  );
+  console.log('telegramUser: ', telegramUser);
 
   useEffect(() => {
     // Extract the tgAuthResult from the URL hash
     const urlHash = window.location.hash;
-    console.log('urlHash: ', urlHash);
     const tgAuthResultParam = new URLSearchParams(urlHash.replace('#', '')).get(
       'tgAuthResult',
     );
 
     if (tgAuthResultParam) {
-      setTgAuthResult(tgAuthResultParam);
+      try {
+        const decoded = jwt.decode(tgAuthResultParam) as ITelegramUserInfo; // Cast to ITelegramUserInfo
+        setTelegramUser(decoded); // Setting the decoded result directly
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
     }
   }, []);
 
