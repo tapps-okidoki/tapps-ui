@@ -116,7 +116,7 @@ export function Navbar() {
           <button className="hidden rounded-full bg-tapps-blue px-3 py-2 md:block">
             Sign up
           </button>
-          {userLoginData ? (
+          {userLoginData.username ? (
             <p className="py-2 font-semibold">@{userLoginData.username}</p>
           ) : (
             <button className="py-2" onClick={() => setIsOpenLoginDialog(true)}>
