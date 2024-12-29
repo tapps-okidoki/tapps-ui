@@ -14,10 +14,13 @@ export function LoginBtn() {
     const tgAuthResultParam = new URLSearchParams(urlHash.replace('#', '')).get(
       'tgAuthResult',
     );
+    console.log('tgAuthResultParam: ', tgAuthResultParam);
 
     if (tgAuthResultParam) {
+      console.log('tgAuthResultParam: ', tgAuthResultParam);
       try {
         const decoded = jwt.decode(tgAuthResultParam) as ITelegramUserInfo; // Cast to ITelegramUserInfo
+        console.log('decoded: ', decoded);
         setTelegramUser(decoded); // Setting the decoded result directly
       } catch (error) {
         console.error('Error decoding token:', error);
