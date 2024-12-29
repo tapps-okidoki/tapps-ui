@@ -35,11 +35,12 @@ export function LoginBtn() {
     const origin = encodeURIComponent('https://tapps-okidoki.vercel.app/'); // Your origin
     const returnTo = encodeURIComponent('https://tapps-okidoki.vercel.app/'); // Redirect URL after login
     const telegramUrl = `https://oauth.telegram.org/auth?bot_id=${botId}&origin=${origin}&request_access=write&return_to=${returnTo}`;
-    window.location.href = telegramUrl;
-    // window.open(telegramUrl); // Open Telegram login in a new tab
+    window.open(telegramUrl); // Open Telegram login in a new tab
   };
 
-  return (
+  return telegramUser ? (
+    <p className="py-2 font-semibold">@{telegramUser.username}</p>
+  ) : (
     <button className="py-2" onClick={handleLogin}>
       Log in with Telegram
     </button>
