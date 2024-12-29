@@ -8,6 +8,7 @@ import React, { useContext } from 'react';
 import { IShowSidebarStatus } from '@tapps/types';
 import { UrlObject } from 'url';
 import { AppContext } from '@tapps/contexts/AppContext';
+import { LoginBtn } from './LoginBtn';
 
 export function Navbar() {
   const { showSideBar, setShowSideBar } = useContext(AppContext);
@@ -59,7 +60,7 @@ export function Navbar() {
         <button className="hidden rounded-full bg-tapps-blue px-3 py-2 md:block">
           Sign up
         </button>
-        <button className="py-2">Log in</button>
+        <LoginBtn />
       </div>
     </section>
   );
