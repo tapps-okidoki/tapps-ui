@@ -29,14 +29,13 @@ export function Card({ card, index }: Props) {
       {
         name: 'Telegram',
         icon: <FontAwesomeIcon icon={faTelegram} />,
-        link:
-          card.offcial_links !== '0'
-            ? `https://t.me/${card.offcial_links.split('@')[1]}`
-            : '',
+        link: card.offcial_links
+          ? `https://t.me/${card.offcial_links?.split('@')[1]}`
+          : '',
         existed:
           card.is_telegram_mini_app !==
             'TON App is not responsible for any of the apps in the catalog. Using this app you take your own risks. Read our Disclaimer Terms and Privacy Policy' &&
-          card.is_telegram_mini_app !== '0',
+          card.is_telegram_mini_app,
       },
       {
         name: 'Web',

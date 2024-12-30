@@ -43,11 +43,11 @@ export interface IGameItem {
 
 export interface IGetAllAppsResResultAppItem {
   _id: string;
-  system: 'tapps';
+  system: string;
   create_at: Date;
-  create_by: 'tapps';
+  create_by: string;
   change_at: Date;
-  change_by: 'tapps';
+  change_by: string;
   del_flag: boolean;
   app_position: string;
   app_name: string;
@@ -63,26 +63,35 @@ export interface IGetAllAppsResResultAppItem {
   category_id: string;
 }
 
+export interface IGetAllAppsResResultCategory {
+  _id: string;
+  system: string;
+  create_at: Date;
+  create_by: string;
+  change_at: Date;
+  change_by: string;
+  del_flag: boolean;
+  name: string;
+  description: string;
+  image: string;
+  spec_name: ECategoryName;
+  __v: 0;
+}
+
 export interface IGetAllAppsResResult {
   apps: IGetAllAppsResResultAppItem[];
-  cateory: {
-    _id: string;
-    system: 'tapps';
-    create_at: Date;
-    create_by: 'tapps';
-    change_at: Date;
-    change_by: 'tapps';
-    del_flag: boolean;
-    name: ECategoryName;
-    description: string;
-    image: string;
-    __v: 0;
-  };
+  cateory: IGetAllAppsResResultCategory;
 }
 
 export interface IGetAllAppsRes {
   num: number;
   result: IGetAllAppsResResult[];
+  status: string;
+}
+
+export interface IGetAllCategoriesRes {
+  num: number;
+  result: Partial<IGetAllAppsResResultCategory>[];
   status: string;
 }
 
@@ -96,4 +105,12 @@ export interface ITelegramUserInfo {
   is_premium?: boolean;
   photo_url?: string;
   isNewUser?: boolean;
+}
+
+export interface IGetAllCategoriesResBody {
+  select: '_id';
+}
+
+export interface IGetAppsByCategory {
+  category: ECategoryName;
 }

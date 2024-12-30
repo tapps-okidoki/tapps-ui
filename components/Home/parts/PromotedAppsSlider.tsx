@@ -7,22 +7,25 @@ import 'swiper/css/pagination';
 import 'swiper/css/keyboard';
 import 'swiper/css/free-mode';
 import { Autoplay, FreeMode } from 'swiper/modules';
-import { IGetAllAppsResResultAppItem } from '@tapps/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useDeviceScreen } from '@tapps/hooks/useMobileScreen';
+import { useGetAppByCategory } from '@tapps/hooks/useGetAppByCategory';
+import { ECategoryName } from '@tapps/types/enum';
+import TappsLoading from '@tapps/components/Loading';
 
 interface Props {
-  appList: IGetAllAppsResResultAppItem[];
+  cate: ECategoryName;
 }
 
-export function PromoteAppsSlider({ appList }: Props) {
+export function PromoteAppsSlider({ cate }: Props) {
+  const { data, isLoading } = useGetAppByCategory({ category: cate });
   const isMobile = useDeviceScreen('768px');
   const isTablet = useDeviceScreen('1024px');
   const visibleSlides = isTablet ? 10 : isMobile ? 5 : 15;
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const onRenderMostPopular = () => {
-    return appList?.map((app, index) => {
+    return data?.apps?.map((app, index) => {
       const distanceFromCenter = Math.abs(activeIndex - index);
       const maxDistance = Math.ceil(visibleSlides / 2);
       const opacity = 1 - distanceFromCenter / maxDistance;
@@ -47,6 +50,13 @@ export function PromoteAppsSlider({ appList }: Props) {
       );
     });
   };
+  if (isLoading) {
+    return <TappsLoading />;
+  }
+
+  if (!data) {
+    return <></>;
+  }
   return (
     <div className="relative w-full">
       <Swiper
