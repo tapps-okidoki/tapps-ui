@@ -2,11 +2,11 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import React from 'react';
-import { PopularSlider } from './PopularSlider';
-import { GamesSlider } from './GamesSlider';
-import { PromoteAppsSlider } from './PromotedAppsSlider';
+import { PopularSlider } from './Sliders/PopularSlider';
+import { GamesSlider } from './Sliders/GamesSlider';
+import { PromoteAppsSlider } from './Sliders/PromotedAppsSlider';
 import { ECategoryName } from '@tapps/types/enum';
-import { BaseAppSectionCard } from './BaseAppSectionCard';
+import { BaseAppSectionCard } from './BaseAppSectionCard/BaseAppSectionCard';
 
 export function HomePanel() {
   const onRenderSections = () => {

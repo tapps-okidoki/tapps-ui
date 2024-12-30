@@ -20,6 +20,7 @@ import { IShowSidebarStatus } from '@tapps/types';
 import { HomePanel } from './parts/HomePanel';
 import { AppContext } from '@tapps/contexts/AppContext';
 import { useDeviceScreen } from '@tapps/hooks/useMobileScreen';
+import { Footer } from './parts/Footer/Footer';
 
 export function HomeComponent() {
   const isMobile = useDeviceScreen('768px');
@@ -126,6 +127,7 @@ export function HomeComponent() {
           <TabPanel>Content 3</TabPanel>
           <TabPanel>Content 4</TabPanel>
           <TabPanel>Content 5</TabPanel>
+          <Footer />
         </TabPanels>
       </TabGroup>
     </div>
