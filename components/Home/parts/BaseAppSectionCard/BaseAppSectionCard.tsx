@@ -10,7 +10,6 @@ interface Props {
 
 export function BaseAppSectionCard({ cate }: Props) {
   const { data, isLoading } = useGetAppByCategory({ category: cate });
-  console.debug('data: ', data);
   if (isLoading) {
     return <TappsLoading />;
   }
