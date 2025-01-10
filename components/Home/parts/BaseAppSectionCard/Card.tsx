@@ -40,15 +40,15 @@ export function Card({ card, index }: Props) {
       {
         name: 'Web',
         icon: <FontAwesomeIcon icon={faGlobe} />,
-        link: card.app_link ?? '',
-        existed: Boolean(card.app_link),
+        link: card.app_type ?? '',
+        existed: Boolean(card.app_type),
       },
     ];
     return linkArray.map((i, linkIndex) => {
       return i.existed ? (
         <Link
           target="_blank"
-          href={i.link}
+          href={i.link ?? ''}
           key={i.name + (Math.random() * linkIndex).toString()}
         >
           {i.icon}
@@ -57,24 +57,24 @@ export function Card({ card, index }: Props) {
     });
   };
   return (
-    <div className="flex flex-col justify-between gap-2 rounded-xl border border-tapps-gray bg-tapps-light-black p-3 lg:flex-row lg:gap-4">
-      <div className="flex-1">
+    <div className="flex flex-col justify-between gap-2 rounded-xl border border-tapps-gray/30 bg-tapps-light-black p-3 hover:border-tapps-gray/80 lg:flex-row lg:gap-4">
+      <Link href={card.app_type ?? ''} target="_blank" className="flex-1">
         <Image
-          src={`/card/card-1.png`}
+          src={card.app_image}
           alt={`Card ${index + 1}`}
           height={200}
           width={200}
-          className="aspect-square w-full object-contain"
+          className="aspect-square w-full rounded-lg object-contain"
         />
-      </div>
+      </Link>
       <div className="flex flex-[2.5] flex-col justify-between gap-2 md:gap-1">
         <div className="flex items-start justify-between">
           <h3 className="text-sm font-semibold md:text-base">
             {card.app_name}
           </h3>
-          <div className="grid h-5 w-5 place-items-center rounded-md bg-tapps-lighter-black text-tapps-gray">
+          {/* <div className="grid h-5 w-5 place-items-center rounded-md bg-tapps-lighter-black text-tapps-gray">
             <p className="text-xs">1</p>
-          </div>
+          </div> */}
         </div>
         <p className="line-clamp-2 text-[11px] text-tapps-gray md:text-xs">
           {card.app_short_des !== '0'

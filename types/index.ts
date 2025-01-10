@@ -55,6 +55,7 @@ export interface IGetAllAppsResResultAppItem {
   app_link: string;
   app_short_des: string;
   app_long_des: string;
+  app_image: string;
   is_telegram_mini_app: string;
   app_languages: string;
   offcial_links: string;

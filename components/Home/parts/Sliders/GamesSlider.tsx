@@ -51,15 +51,15 @@ export function GamesSlider() {
           {
             name: 'Web',
             icon: <FontAwesomeIcon icon={faGlobe} />,
-            link: game.app_link ?? '',
-            existed: Boolean(game.app_link),
+            link: game.app_type ?? '',
+            existed: Boolean(game.app_type),
           },
         ];
         return linkArray.map((i, linkIndex) => {
           return i.existed ? (
             <Link
               target="_blank"
-              href={i.link}
+              href={i.link ?? ''}
               key={i.name + (Math.random() * linkIndex).toString()}
             >
               {i.icon}
@@ -78,9 +78,9 @@ export function GamesSlider() {
           >
             <div className="overflow-hidden rounded-2xl bg-tapps-light-black">
               <Image
-                className="h-auto w-full object-contain transition-all duration-300 hover:brightness-110"
-                src={`/game/game-1.png`}
-                alt={game.app_long_des}
+                className="aspect-[3/4] h-full object-cover transition-all duration-300 hover:brightness-110"
+                src={game.app_image}
+                alt={game.app_name}
                 width={90000000}
                 height={90000000}
                 loading="eager"

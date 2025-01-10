@@ -4,6 +4,6 @@ import { IGetAppsByCategory } from '@tapps/types';
 
 export const useGetAppByCategory = (requestBody: IGetAppsByCategory) =>
   useQuery({
-    queryKey: ['useGetAppByCategory'],
+    queryKey: ['useGetAppByCategory', requestBody],
     queryFn: async () => await appService.getAppsByCategory(requestBody),
   });

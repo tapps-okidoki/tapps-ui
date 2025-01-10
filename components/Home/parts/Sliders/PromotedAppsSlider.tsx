@@ -32,14 +32,14 @@ export function PromoteAppsSlider({ cate }: Props) {
       return (
         <SwiperSlide title={app.app_name} key={app._id}>
           <Link
-            href={app.app_link}
+            href={app.app_type ?? ''}
             target="_blank"
             className="flex-1 cursor-pointer transition-transform"
           >
             <Image
               className="h-auto w-full rounded-full border border-transparent object-contain hover:border-tapps-white"
-              src={`/promoteapps/promote-1.png`}
-              alt={app.app_name}
+              src={app.app_image}
+              alt={app.app_name ?? `app ${index}`}
               width={90000000}
               height={90000000}
               loading="eager"

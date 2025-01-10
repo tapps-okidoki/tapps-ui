@@ -44,7 +44,7 @@ export function Footer() {
             {item.links.map((iLink) => {
               return (
                 <Link
-                  href={iLink.link}
+                  href={iLink.link ?? ''}
                   key={iLink.name}
                   className="text-tapps-gray hover:text-tapps-white"
                 >

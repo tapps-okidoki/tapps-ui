@@ -62,7 +62,7 @@ export function Navbar() {
       return (
         <Link
           key={i.id}
-          href={i.link as unknown as UrlObject}
+          href={(i.link as unknown as UrlObject) ?? ''}
           className="font-bold hover:underline"
         >
           {i.name}

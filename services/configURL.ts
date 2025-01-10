@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://test.gamefi-1.dev/';
+const BASE_URL = 'https://tapps-gateway.gamefi-1.dev/';
 
 export const https = axios.create({
   baseURL: BASE_URL,
