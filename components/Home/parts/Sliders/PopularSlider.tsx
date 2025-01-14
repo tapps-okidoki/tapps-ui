@@ -11,8 +11,7 @@ import 'swiper/css/free-mode';
 import { Autoplay, FreeMode, Navigation } from 'swiper/modules';
 import { IMostPopularItem } from '@tapps/types';
 import Image from 'next/image';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { CircleArrowLeft, CircleArrowRight } from 'lucide-react';
 
 export function PopularSlider() {
   const navigationPrevRef = useRef(null);
@@ -84,16 +83,16 @@ export function PopularSlider() {
       <button
         id="prevButton"
         ref={navigationPrevRef}
-        className="absolute left-0 top-1/2 z-10 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-[1px] border-tapps-gray bg-tapps-lighter-black opacity-80 hover:opacity-100"
+        className="absolute left-0 top-1/2 z-10 -translate-x-[150%] -translate-y-1/2 opacity-60 transition-transform duration-300 hover:opacity-100"
       >
-        <FontAwesomeIcon icon={faCaretLeft} />
+        <CircleArrowLeft />
       </button>
       <button
         id="nextButton"
-        className="absolute right-0 top-1/2 z-10 h-7 w-7 -translate-y-1/2 translate-x-1/2 rounded-full border-[1px] border-tapps-gray bg-tapps-lighter-black opacity-80 hover:opacity-100"
+        className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-[150%] opacity-60 transition-transform duration-300 hover:opacity-100"
         ref={navigationNextRef}
       >
-        <FontAwesomeIcon icon={faCaretRight} />
+        <CircleArrowRight />
       </button>
     </div>
   );

@@ -57,7 +57,7 @@ export function Card({ card, index }: Props) {
     });
   };
   return (
-    <div className="flex flex-col justify-between gap-2 rounded-xl border border-tapps-gray/30 bg-tapps-light-black p-3 hover:border-tapps-gray/80 lg:flex-row lg:gap-4">
+    <div className="flex flex-col justify-between gap-2 rounded-xl border border-tapps-gray/30 p-3 hover:border-tapps-gray/80 lg:flex-row lg:gap-4">
       <Link href={card.app_type ?? ''} target="_blank" className="flex-1">
         <Image
           src={card.app_image}

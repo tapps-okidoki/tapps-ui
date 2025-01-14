@@ -1,15 +1,12 @@
 'use client';
-
 import localFont from 'next/font/local';
 import './globals.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import { Navbar } from '@tapps/components/Navbar';
-import { Suspense, useEffect, useState } from 'react';
-import { AppContext } from '@tapps/contexts/AppContext';
-import { IShowSidebarStatus } from '@tapps/types';
-import { useDeviceScreen } from '@tapps/hooks/useMobileScreen';
+import { Suspense } from 'react';
 import { ReactQueryProvider } from './ReactQuery/ReactQueryProvider';
+import { ThemeProvider } from '@tapps/components/ThemeProvider';
+
 config.autoAddCss = false;
 
 const geistSans = localFont({
@@ -28,29 +25,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isMobile = useDeviceScreen('768px');
-  const [showSideBar, setShowSideBar] = useState<IShowSidebarStatus>(
-    IShowSidebarStatus.show,
-  );
-  useEffect(() => {
-    setShowSideBar(
-      isMobile ? IShowSidebarStatus.hide : IShowSidebarStatus.show,
-    );
-  }, [isMobile]);
   return (
     <html lang="en">
       <head>
         <title>Tapps Okidoki</title>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-[100dvh] w-[100dvw] bg-tapps-black text-tapps-white antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Suspense>
           <ReactQueryProvider>
-            <AppContext.Provider value={{ showSideBar, setShowSideBar }}>
-              <Navbar />
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
               {children}
-            </AppContext.Provider>
+            </ThemeProvider>
           </ReactQueryProvider>
         </Suspense>
       </body>
