@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 't.me',
         port: '',
-        pathname: '/userpic/**',
+        pathname: '/i/userpic/320/**',
       },
     ],
   },
