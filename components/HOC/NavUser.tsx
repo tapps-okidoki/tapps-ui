@@ -34,7 +34,6 @@ import { ITelegramUserInfo } from '@tapps/types';
 export function NavUser({ user }: { user: ITelegramUserInfo }) {
   const { isMobile } = useSidebar();
   const handleOnLogout = () => {
-    console.log('localStorage: ', localStorage);
     localStorage.removeItem('T_USER');
     window.location.reload();
   };
@@ -48,7 +47,7 @@ export function NavUser({ user }: { user: ITelegramUserInfo }) {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.photo_url ?? ''} alt={user.username} />
+                <AvatarImage src={user.photo_url} alt={user.username} />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
