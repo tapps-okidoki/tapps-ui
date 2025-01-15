@@ -10,7 +10,7 @@ import { cn } from '@tapps/lib/utils';
 import { Button } from '@tapps/components/ui/button';
 import { Input } from '@tapps/components/ui/input';
 import { Separator } from '@tapps/components/ui/separator';
-import { Sheet, SheetContent } from '@tapps/components/ui/sheet';
+import { Sheet, SheetContent, SheetTitle } from '@tapps/components/ui/sheet';
 import { Skeleton } from '@tapps/components/ui/skeleton';
 import {
   Tooltip,
@@ -203,10 +203,11 @@ const Sidebar = React.forwardRef<
     if (isMobile) {
       return (
         <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
+          <SheetTitle></SheetTitle>
           <SheetContent
             data-sidebar="sidebar"
             data-mobile="true"
-            className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
+            className="w-[--sidebar-width] border-r-tapps-lighter-black bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
             style={
               {
                 '--sidebar-width': SIDEBAR_WIDTH_MOBILE,

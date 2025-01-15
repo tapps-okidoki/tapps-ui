@@ -48,6 +48,7 @@ export function HomePanel() {
         title: 'Games',
         content: <GamesSlider />,
         subtitle: 'Buy, sell and swap TON or wTON',
+        id: 'games',
       },
       {
         title: 'Staking',
@@ -62,10 +63,22 @@ export function HomePanel() {
         id: 'social',
       },
       {
+        title: 'Gambling',
+        content: <BaseAppSectionCard cate={ECategoryName.GAMBLING} />,
+        subtitle: '',
+        id: 'gambling',
+      },
+      {
         title: 'Tools',
         content: <BaseAppSectionCard cate={ECategoryName.DEV_TOOLS} />,
         subtitle: 'Experience social networks powered by TON Blockchain',
         id: 'tools',
+      },
+      {
+        title: 'Shopping',
+        content: <BaseAppSectionCard cate={ECategoryName.SHOPPING} />,
+        subtitle: '',
+        id: 'shopping',
       },
     ];
 
@@ -83,7 +96,7 @@ export function HomePanel() {
                 {section.subtitle}
               </p>
             </div>
-            <button className="flex items-center gap-4 whitespace-nowrap text-sm text-tapps-blue hover:underline hover:brightness-125 md:text-base">
+            <button className="flex items-center gap-4 whitespace-nowrap text-sm hover:underline hover:brightness-125 md:text-base">
               See All
               <FontAwesomeIcon icon={faChevronRight} />
             </button>
@@ -96,11 +109,11 @@ export function HomePanel() {
 
   return (
     <div
-      className={`${open ? 'w-[calc(100svw-18rem)]' : 'w-[calc(100svw-4rem)]'} flex flex-col items-center gap-5 md:gap-16`}
+      className={`${open ? 'md:w-[calc(100svw-18rem)]' : 'md:w-[calc(100svw-4rem)]'} flex flex-col items-center gap-5 md:gap-16`}
     >
-      <section className="bg-home-frame-1 h-[40dvh] px-5 text-center md:h-[35dvh] md:px-16 lg:h-[60dvh]">
+      <section className="bg-home-frame-1 px-5 text-center md:px-16">
         <div className="mt-12 flex flex-col items-center gap-20 lg:mt-32 lg:gap-32">
-          <h1 className="text-2xl font-black text-tapps-purple md:text-4xl">
+          <h1 className="text-2xl font-black dark:text-tapps-purple md:text-4xl">
             Explore 1079 apps in TON Ecosystem
           </h1>
           <div className="flex flex-wrap gap-6">

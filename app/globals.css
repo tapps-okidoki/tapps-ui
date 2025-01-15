@@ -20,7 +20,7 @@
 } */
 
 * {
-  scroll-behavior: smooth;
+  @apply scroll-mt-2 scroll-smooth md:scroll-mt-14 lg:scroll-mt-16;
 }
 
 body {
