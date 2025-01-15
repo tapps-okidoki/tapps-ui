@@ -33,7 +33,11 @@ import { ITelegramUserInfo } from '@tapps/types';
 
 export function NavUser({ user }: { user: ITelegramUserInfo }) {
   const { isMobile } = useSidebar();
-
+  const handleOnLogout = () => {
+    console.log('localStorage: ', localStorage);
+    localStorage.removeItem('T_USER');
+    window.location.reload();
+  };
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -99,7 +103,7 @@ export function NavUser({ user }: { user: ITelegramUserInfo }) {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleOnLogout}>
               <LogOut />
               Log out
             </DropdownMenuItem>
