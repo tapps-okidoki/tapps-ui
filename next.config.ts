@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/i/userpic/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn5.cdn-telegram.org',
+        port: '',
+        pathname: '/file/**',
+      },
     ],
   },
 };
