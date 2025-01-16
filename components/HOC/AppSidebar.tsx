@@ -120,11 +120,10 @@ export function AppSidebar() {
   const router = useRouter();
   // Get all query parameters
   const id = searchParams.get('id');
-  const firstName = searchParams.get('firstName');
-  const lastName = searchParams.get('lastName');
+  const firstName = searchParams.get('first_name');
+  const lastName = searchParams.get('last_name');
   const username = searchParams.get('username');
-  const photoUrl = searchParams.get('photoUrl');
-  console.log('photoUrl: ', photoUrl);
+  const photoUrl = searchParams.get('photo_url');
   const authDate = searchParams.get('authDate');
   const hash = searchParams.get('hash');
   const [isClient, setIsClient] = useState(false);
