@@ -108,6 +108,16 @@ export interface ITelegramUserInfo {
   isNewUser?: boolean;
 }
 
+export interface ITelegramUserInfoFromBrowser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  photoUrl: string;
+  authDate: string;
+  hash: string;
+}
+
 export interface IGetAllCategoriesResBody {
   select: '_id';
 }

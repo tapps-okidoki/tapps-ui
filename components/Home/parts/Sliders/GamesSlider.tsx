@@ -72,11 +72,11 @@ export function GamesSlider() {
           <div
             className={`relative ${
               index === activeIndex
-                ? 'rounded-2xl bg-gradient-custom p-[1px]'
+                ? 'text-tap rounded-2xl border-none bg-gradient-custom p-[1px]'
                 : 'scale-75'
             } cursor-pointer transition-all duration-300`} // Special effect for center slide
           >
-            <div className="overflow-hidden rounded-2xl bg-tapps-light-black">
+            <div className="overflow-hidden rounded-2xl border bg-white dark:border-none dark:bg-tapps-light-black">
               <Image
                 className="aspect-[3/4] h-full object-cover transition-all duration-300 hover:brightness-110"
                 src={game.app_image}

@@ -9,6 +9,7 @@ import { ECategoryName } from '@tapps/types/enum';
 import { BaseAppSectionCard } from './BaseAppSectionCard/BaseAppSectionCard';
 import { useSidebar } from '@tapps/components/ui/sidebar';
 import { PopularSlider } from './Sliders/PopularSlider';
+import { Footer } from './Footer/Footer';
 
 export function HomePanel() {
   const { open } = useSidebar();
@@ -141,6 +142,7 @@ export function HomePanel() {
       <div className="flex w-full flex-col items-center gap-5 px-5 md:mt-0 md:gap-16 md:px-16">
         {onRenderSections()}
       </div>
+      <Footer />
     </div>
   );
 }

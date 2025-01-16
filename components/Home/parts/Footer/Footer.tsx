@@ -46,7 +46,7 @@ export function Footer() {
                 <Link
                   href={iLink.link ?? ''}
                   key={iLink.name}
-                  className="text-tapps-gray hover:text-tapps-white"
+                  className="text-tapps-gray hover:text-black dark:hover:text-tapps-white"
                 >
                   {iLink.name}
                 </Link>
@@ -65,7 +65,7 @@ export function Footer() {
           alt="Frame 2"
           width={20000}
           height={20000}
-          className="h-auto w-14 object-contain"
+          className="aspect-square w-16 rounded-full bg-black object-contain p-2 dark:bg-transparent"
         />
         <div className="grid grid-flow-row grid-cols-2 gap-14 md:flex md:gap-20">
           {onRenderFooterList()}

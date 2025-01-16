@@ -19,7 +19,7 @@ export function Header() {
 
         {/* Navigation */}
         <NavigationMenu>
-          <NavigationMenuList className="flex space-x-6 text-sm font-medium">
+          <NavigationMenuList className="flex space-x-6 text-sm font-semibold">
             <NavigationMenuItem>
               <Link
                 href="/"

@@ -35,7 +35,7 @@ import {
 import { TooltipArrow } from '@radix-ui/react-tooltip';
 import { NavUser } from './NavUser';
 import { ModeToggle } from '../Home/ModeToggle';
-import { ITelegramUserInfo } from '@tapps/types';
+import { ITelegramUserInfoFromBrowser } from '@tapps/types';
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCloseOnOutsideClickOrEsc } from '@tapps/hooks/useCloseOnOutsideClickOrEsc';
@@ -120,18 +120,19 @@ export function AppSidebar() {
   const router = useRouter();
   // Get all query parameters
   const id = searchParams.get('id');
-  const firstName = searchParams.get('first_name');
-  const lastName = searchParams.get('last_name');
+  const firstName = searchParams.get('firstName');
+  const lastName = searchParams.get('lastName');
   const username = searchParams.get('username');
-  const photoUrl = searchParams.get('photo_url');
-  const authDate = searchParams.get('auth_date');
+  const photoUrl = searchParams.get('photoUrl');
+  console.log('photoUrl: ', photoUrl);
+  const authDate = searchParams.get('authDate');
   const hash = searchParams.get('hash');
   const [isClient, setIsClient] = useState(false);
   const localUserData =
     isClient && localStorage.getItem('T_USER')
       ? JSON.parse(localStorage.getItem('T_USER') ?? '')
       : undefined;
-  const userLoginData = useMemo<ITelegramUserInfo>(
+  const userLoginData = useMemo<ITelegramUserInfoFromBrowser>(
     () =>
       localUserData ?? {
         id,
