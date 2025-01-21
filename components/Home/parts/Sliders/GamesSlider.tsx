@@ -51,8 +51,8 @@ export function GamesSlider() {
           {
             name: 'Web',
             icon: <FontAwesomeIcon icon={faGlobe} />,
-            link: game.app_type ?? '',
-            existed: Boolean(game.app_type),
+            link: '',
+            existed: Boolean(''),
           },
         ];
         return linkArray.map((i, linkIndex) => {
@@ -69,7 +69,8 @@ export function GamesSlider() {
       };
       return (
         <SwiperSlide title={game.app_long_des} key={game._id}>
-          <div
+          <Link
+            href={`/apps/${game._id}`}
             className={`relative ${
               index === activeIndex
                 ? 'text-tap rounded-2xl border-none bg-gradient-custom p-[1px]'
@@ -102,7 +103,7 @@ export function GamesSlider() {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         </SwiperSlide>
       );
     });

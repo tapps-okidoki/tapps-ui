@@ -32,8 +32,7 @@ export function PromoteAppsSlider({ cate }: Props) {
       return (
         <SwiperSlide title={app.app_name} key={app._id}>
           <Link
-            href={app.app_type ?? ''}
-            target="_blank"
+            href={`/apps/${app._id}`}
             className="flex-1 cursor-pointer transition-transform"
           >
             <Image

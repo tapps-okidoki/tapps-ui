@@ -1,16 +1,22 @@
 'use client';
-import { faArrowDown, faBars } from '@fortawesome/free-solid-svg-icons';
-import { faBell, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Image from 'next/image';
 import Link from 'next/link';
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { IShowSidebarStatus, ITelegramUserInfo } from '@tapps/types';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ITelegramUserInfoFromBrowser } from '@tapps/types';
 import { UrlObject } from 'url';
-import { AppContext } from '@tapps/contexts/AppContext';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { UserBtn } from './UserBtn';
 import { useCloseOnOutsideClickOrEsc } from '@tapps/hooks/useCloseOnOutsideClickOrEsc';
+import { faTelegram } from '@fortawesome/free-brands-svg-icons';
+import { NavUser } from '../HOC/NavUser';
+import { Button } from '../ui/button';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from '../ui/card';
+import Image from 'next/image';
 
 export function Navbar() {
   const searchParams = useSearchParams();
@@ -28,7 +34,7 @@ export function Navbar() {
     isClient && localStorage.getItem('T_USER')
       ? JSON.parse(localStorage.getItem('T_USER') ?? '')
       : undefined;
-  const userLoginData = useMemo<ITelegramUserInfo>(
+  const userLoginData = useMemo<ITelegramUserInfoFromBrowser>(
     () =>
       localUserData ?? {
         id,
@@ -51,7 +57,6 @@ export function Navbar() {
     ],
   );
 
-  const { showSideBar, setShowSideBar } = useContext(AppContext);
   const onRenderNavItems = () => {
     const navItems = [
       { id: 'ton', name: 'Ton', link: '#' },
@@ -69,15 +74,6 @@ export function Navbar() {
         </Link>
       );
     });
-  };
-
-  const onHandleShowSideBar = () => {
-    if (setShowSideBar)
-      setShowSideBar(
-        showSideBar === IShowSidebarStatus.show
-          ? IShowSidebarStatus.hide
-          : IShowSidebarStatus.show,
-      );
   };
 
   const telegramWrapperRef = useRef<HTMLDivElement>(null);
@@ -117,79 +113,81 @@ export function Navbar() {
   const loginContentRef =
     useCloseOnOutsideClickOrEsc<HTMLDivElement>(closeLoginDialog);
 
+  const notifications = [
+    {
+      title: 'Get notified about app moderation.',
+    },
+    {
+      title: 'You have a new message!',
+    },
+    {
+      title: 'Your subscription is expiring soon!',
+    },
+  ];
   return (
     <>
       <dialog
         open={isOpenLoginDialog}
-        className="fixed inset-0 z-30 mx-auto w-[90vw] bg-transparent md:w-fit"
+        className="fixed inset-0 z-50 mx-auto h-full w-full bg-transparent"
       >
-        <div ref={loginContentRef} className="flex items-center justify-center">
-          <div className="flex w-fit flex-col gap-7 rounded-xl border border-tapps-gray bg-tapps-black p-5 text-tapps-white">
-            <h2 className="text-left text-2xl font-bold">Log in</h2>
-            <div className="flex flex-col gap-6">
-              <div className="flex gap-3">
-                <FontAwesomeIcon
-                  icon={faBell}
-                  className="text-xl text-tapps-blue"
-                />
-                <p>Get notified about app moderation</p>
+        <div className="flex h-full items-center justify-center bg-[#121212]/40">
+          <Card className="w-[380px]" ref={loginContentRef}>
+            <CardHeader>
+              <CardTitle>Login</CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-4">
+              <div>
+                {notifications.map((notification, index) => (
+                  <div
+                    key={index}
+                    className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0"
+                  >
+                    <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
+                    <div className="space-y-1">
+                      <p className="text-sm font-medium leading-none">
+                        {notification.title}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="flex gap-3">
-                <FontAwesomeIcon
-                  icon={faPenToSquare}
-                  className="text-xl text-tapps-blue"
-                />
-                <p>Leave reviews on applications</p>
-              </div>
-              <div className="flex gap-3">
-                <FontAwesomeIcon
-                  icon={faArrowDown}
-                  className="text-xl text-tapps-blue"
-                />
-                <p>Receive catalog updates</p>
-              </div>
+            </CardContent>
+            <CardFooter className="flex-col gap-5">
               <div
                 ref={telegramWrapperRef}
                 className="flex justify-center"
               ></div>
-            </div>
-            <div className="flex gap-1 text-base">
-              <p>No Telegram? Install the app from the official</p>
-              <Link
-                href={'https://telegram.org/'}
-                className="text-tapps-blue hover:underline"
-              >
-                website
-              </Link>
-            </div>
-          </div>
+              <div className="flex gap-1 text-sm">
+                <p>No Telegram? Install the app from the official</p>
+                <Link
+                  href={'https://telegram.org/'}
+                  className="text-tapps-blue hover:underline"
+                >
+                  website
+                </Link>
+              </div>
+            </CardFooter>
+          </Card>
         </div>
       </dialog>
-      <section className="sticky top-0 z-20 flex w-full items-center justify-between gap-3 border-b-[0.5px] border-b-tapps-white/20 bg-tapps-light-black px-6 py-3 transition-all duration-300 hover:brightness-110">
-        <FontAwesomeIcon
-          icon={faBars}
-          size="xl"
-          className="cursor-pointer"
-          onClick={onHandleShowSideBar}
-        />
-        <nav className="flex items-center gap-3">{onRenderNavItems()}</nav>
-        <div className="flex items-center gap-5 text-sm font-bold">
-          <Image
-            src="/google.svg"
-            alt="Google Icon"
-            width={20000}
-            height={20000}
-            className="hidden h-6 w-6 md:block"
-          />
-          <button className="hidden rounded-full bg-tapps-blue px-3 py-2 md:block">
-            Sign up
-          </button>
+      <section className="sticky inset-x-0 top-0 z-20 w-full gap-3 border-b-[0.5px] bg-white dark:bg-black">
+        <div className="container mx-auto flex items-center justify-between">
+          <Link href={'/'} className="rounded-full bg-black">
+            <Image
+              src="/logo/logo.png"
+              alt="Frame 2"
+              width={20000}
+              height={20000}
+              className="m-1 aspect-square w-8 rounded-full object-contain dark:bg-transparent"
+            />
+          </Link>
+          <nav className="flex items-center gap-3">{onRenderNavItems()}</nav>
           {userLoginData.username ? (
-            <UserBtn username={`@${userLoginData.username}`} />
+            <NavUser user={userLoginData} className="w-fit" />
           ) : (
-            <button className="py-2" onClick={() => setIsOpenLoginDialog(true)}>
-              Log in
-            </button>
+            <Button onClick={() => setIsOpenLoginDialog(true)}>
+              <FontAwesomeIcon icon={faTelegram} /> Login with Telegram
+            </Button>
           )}
         </div>
       </section>

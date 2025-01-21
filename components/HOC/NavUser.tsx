@@ -31,14 +31,20 @@ import {
 } from '@tapps/components/ui/sidebar';
 import { ITelegramUserInfoFromBrowser } from '@tapps/types';
 
-export function NavUser({ user }: { user: ITelegramUserInfoFromBrowser }) {
+export function NavUser({
+  user,
+  className,
+}: {
+  user: ITelegramUserInfoFromBrowser;
+  className?: string;
+}) {
   const { isMobile } = useSidebar();
   const handleOnLogout = () => {
     localStorage.removeItem('T_USER');
     window.location.reload();
   };
   return (
-    <SidebarMenu>
+    <SidebarMenu className={`${className}`}>
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
